@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "airflow-peliqan-provider"
+authors = [
+    {name = "peliqan", email = "dev@peliqan.io"},
+]
+license = {text = "Apache License 2.0"}
+description = "A Provier by Peliqan to Interacte with its API."
+classifiers = [
+    "Framework :: Apache Airflow",
+    "Framework :: Apache Airflow :: Provider",
+]
+dynamic = ["version"]
+requires-python = ">=3.8"
+dependencies = ["apache-airflow>=2.4", "requests>=2.5.0"]
+
+[project.urls]
+Homepage = "https://peliqan.io"
+
+[project.entry-points.apache_airflow_provider]
+provider_info = "peliqan_provider.__init__:get_provider_info"
+
+[tool.setuptools.dynamic]
+version = {attr = "peliqan_provider.__version__"}
+
+[tool.setuptools.packages.find]
+exclude = ["*tests.*", "*tests"]
