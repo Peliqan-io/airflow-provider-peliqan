@@ -7,7 +7,7 @@ def get_provider_info():
     return {
             "package-name": "airflow-peliqan-provider",
             "name": "peliqan",
-            "description": "https://peliqan.io/",
+            "description": "A Peliqan Apache Airflow Provider package built with love by Peliqan.",
             "operators": [
                 {"integration-name": "peliqan",
                  "python-modules": ["peliqan_provider.operators.peliqan"]}
