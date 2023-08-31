@@ -8,14 +8,19 @@ authors = [
     {name = "peliqan", email = "dev@peliqan.io"},
 ]
 license = {text = "Apache License 2.0"}
-description = "A Provier by Peliqan to Interacte with its API."
+description = "A Peliqan Apache Airflow Provider package built with love by Peliqan."
 classifiers = [
     "Framework :: Apache Airflow",
     "Framework :: Apache Airflow :: Provider",
+    "Programming Language :: Python :: 3",
 ]
 dynamic = ["version"]
-requires-python = ">=3.8"
-dependencies = ["apache-airflow>=2.4", "requests>=2.5.0"]
+requires-python = "~=3.8"
+dependencies = ["apache-airflow>=2.4", "requests>=2.3.0"]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
 
 [project.urls]
 Homepage = "https://peliqan.io"
