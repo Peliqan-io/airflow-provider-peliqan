@@ -15,20 +15,18 @@ class PeliqanHook(BaseHook):
             self,
             *,
             peliqan_conn_id: str = "peliqan_api_defalut",
-            base_url: str = "https://app.eu.peliqan.io/",
             ) -> None:
 
         super().__init__()
         self.peliqan_conn_id = peliqan_conn_id
-        self.base_url = base_url
 
-    def set_url(self):
+    def get_url(self):
         conn = self.get_connection(self.peliqan_conn_id)
-        if not conn.base_url:
+        if not conn.host:
             raise AirflowNotFoundException(
                     f"Connection ID {self.peliqan_conn_id} does not have base_url"
                     )
-        url = conn.base_url
+        url = conn.host
         return url
 
     def get_jwt(self):
@@ -42,9 +40,10 @@ class PeliqanHook(BaseHook):
 
     def submit_job(self, script_id):
         token = self.get_jwt()
+        base_url = self.get_url()
         auth_header = {"Authorization": f"JWT {token}"}
         endpoint = f"api/interfaces/{script_id}/schedule_run/"
-        url = f"{self.base_url}{endpoint}"
+        url = f"{base_url}{endpoint}"
         response = requests.post(url, headers=auth_header)
 
         return response
@@ -52,9 +51,10 @@ class PeliqanHook(BaseHook):
     def get_job(self, job_id):
 
         token = self.get_jwt()
+        base_url = self.get_url()
         auth_header = {"Authorization": f"JWT {token}"}
         endpoint = f"api/interfaces/schedule_run/{job_id}"
-        url = f"{self.base_url}{endpoint}"
+        url = f"{base_url}{endpoint}"
         response = requests.get(url, headers=auth_header)
 
         return response
@@ -78,12 +78,13 @@ class PeliqanHook(BaseHook):
     def get_ui_field_behaviour(cls) -> dict[str, Any]:
         """Returns custom field behaviour."""
         return {
-            "hidden_fields": ["login", "port", "host", "schema", "extra"],
+            "hidden_fields": ["login", "port", "schema", "extra"],
             "relabeling": {
                 "password": "Peliqan API Token",
+                "host": "Base url",
             },
             "placeholders": {
                 "password": "<your-token> don't include `JWT` just token",
-                "base_url": "https://app.eu.peliqan.io/",
+                "host": "https://app.eu.peliqan.io/",
             },
         }

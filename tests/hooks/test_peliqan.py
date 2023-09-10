@@ -11,8 +11,8 @@ import unittest
 conn = Connection(
         conn_id="peliqan_conn_id_test",
         conn_type="peliqan",
-        host="https://test.peliqan.io/",
         password="jwt",
+        host="https://staging.peliqan.io/",
         )
 
 db.merge_conn(conn)
