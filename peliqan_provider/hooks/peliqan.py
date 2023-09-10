@@ -60,21 +60,6 @@ class PeliqanHook(BaseHook):
         return response
 
     @classmethod
-    def get_connection_form_widgets(cls) -> dict[str, Any]:
-        """Returns dictionary of widgets to be added for the hook to handle extra values."""
-        from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
-        from flask_babel import lazy_gettext
-        from wtforms import StringField
-
-        return {
-            "base_url": StringField(
-                lazy_gettext("Base URL"),
-                widget=BS3TextFieldWidget(),
-                description="Optional. A string representing the Peliqan API base URL.",
-            ),
-        }
-
-    @classmethod
     def get_ui_field_behaviour(cls) -> dict[str, Any]:
         """Returns custom field behaviour."""
         return {
